@@ -7,10 +7,11 @@ var total_pickups = 0
 @onready var pickup_spawns = []
 @onready var enemy_spawns = []
 
-var player_hp = 5
+var player_hp
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	player_hp = $Player.hp
 	
 	for p in $Pickups.get_children():
 		pickup_spawns.append(Vector2(p.position))
@@ -89,5 +90,6 @@ func _on_camera_change_back_body_entered(body: Node2D) -> void:
 
 func _on_player_hurt(damage) -> void:
 	player_hp -= damage
-	$HUD/AnimationPlayer.play("flash")
+	if not $Player.dead:
+		$HUD/AnimationPlayer.play("flash") #or call a flash function once hud gets a script
 	update_hud() # Replace with function body.

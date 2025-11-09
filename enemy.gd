@@ -60,10 +60,12 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("player"):
 		dead = true
 		#process_mode = PROCESS_MODE_DISABLED
-		$AnimationPlayer.play("death")
+		$AnimationPlayer.play("death2")
 		
-		
-		area.get_parent().velocity.y = -200
+		if Input.is_action_pressed("jump"):
+			area.get_parent().velocity.y = -250
+		else:
+			area.get_parent().velocity.y = -150
 		#var tween = get_tree().create_tween()
 		#tween.tween_property(self,"position.x",(position.x + 30),1)
 		#await tween.finished

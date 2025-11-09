@@ -1,9 +1,11 @@
 extends CharacterBody2D
 
+@export var dash_ghost_scene : PackedScene
+
 const SPEED = 100.0
 @export var JUMP_VELOCITY = -400.0
 
-var gravity = 350
+var gravity = 400
 var acceleration = 15
 var max_speed = 88
 
@@ -18,9 +20,11 @@ var falling = false
 var blinking = false
 var invincible = false
 var move_freeze = false
+var dashing = false
+var available_dashes = 1
 var dead
-var hp = 5
-var max_hp = 5
+@export var hp = 5
+@export var max_hp = 5
 
 
 var enemy_position: Vector2 
@@ -39,36 +43,43 @@ func _physics_process(delta: float) -> void:
 		#if invincible:
 			#knockback()
 		#else:
+		if is_on_floor():
+			available_dashes = 1
 			
-		if not is_on_floor():
+		if not is_on_floor() and not dashing:
 			#velocity += get_gravity() * delta
 			velocity.y += gravity * delta
 
 		# Handle jump.
-		if Input.is_action_just_pressed("ui_accept") and is_on_floor() and not move_freeze:
+		if Input.is_action_just_pressed("jump") and is_on_floor() and not move_freeze:
 			jump(jump_force)
 		
 			#velocity.y = JUMP_VELOCITY
-		if Input.is_action_just_released("ui_accept") and velocity.y < -jump_release_force and not move_freeze:
-				velocity.y = -jump_release_force
+		if Input.is_action_just_released("jump") and velocity.y < -jump_release_force and not move_freeze:
+			velocity.y = -jump_release_force
 		
 		#if Input.is_action_just_pressed("ui_accept") and not is_on_floor():
 			##do hover stuff here?
 			#pass
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
-		var direction := Input.get_axis("ui_left", "ui_right")
+		var direction := Input.get_axis("left", "right")
 		
 		if not move_freeze:
 			if direction:
 				velocity.x = direction * SPEED
 			else:
 				velocity.x = move_toward(velocity.x, 0, 10)
-
+		
+		if Input.is_action_just_pressed("dash") and available_dashes > 0:
+			dashing = true
+			dash()
+			
+		
 		#if abs(velocity.x) < max_speed:
 			#velocity.x += direction  * acceleration
-		if velocity.y >= 500:
-			velocity.y = 500
+		if velocity.y >= 300:
+			velocity.y = 300
 		
 		if velocity.y <= -200:
 			velocity.y = -200
@@ -82,14 +93,42 @@ func jump(force):
 	$AnimationPlayer.play("jump")
 	velocity.y = -force
 
+func dash():
+	available_dashes -= 1
+	move_freeze = true
+	if $Sprite2D.flip_h:
+		velocity.x = -150
+	else:
+		velocity.x = 150
+	velocity.y = 0
+	
+
 func update_animations(direction):
+	#var prev_frame_direction
+	
 	if direction < 0:
 		$Sprite2D.flip_h = true
 	elif direction > 0:
 		$Sprite2D.flip_h = false
 	
-	if move_freeze:
+	if dashing:
+		var dash_ghost = dash_ghost_scene.instantiate()
+		#dash_ghost.global_position = self.global_position
+		dash_ghost.get_node("Sprite2D").flip_h = $Sprite2D.flip_h
+		add_child(dash_ghost)
+	
+	if direction < 0:
+		$Sprite2D.flip_h = true
+	elif direction > 0:
+		$Sprite2D.flip_h = false
+	
+	if move_freeze and not dashing:
 		$AnimationPlayer.play("hurt")
+	elif move_freeze and dashing:
+		$AnimationPlayer.play("dash")
+		await $AnimationPlayer.animation_finished
+		move_freeze = false
+		dashing = false
 	else:
 		if is_on_floor():
 			falling = false
@@ -139,6 +178,7 @@ func damage_player(area: Area2D):
 	else:
 		enemy_position = area.global_position
 		knockback(0.1,300,50)
+		dashing = false
 		#knockback()
 		iframes()
 
