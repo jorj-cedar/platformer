@@ -1,0 +1,208 @@
+extends CharacterBody2D
+
+const SPEED = 100.0
+@export var JUMP_VELOCITY = -400.0
+
+var gravity = 350
+var acceleration = 15
+var max_speed = 88
+
+var jump_force = 200
+var jump_release_force = 10
+var ground_friction = 8
+var air_friction = 2
+
+var previous_frame_velocity = Vector2.ZERO
+
+var falling = false
+var blinking = false
+var invincible = false
+var move_freeze = false
+var dead
+var hp = 5
+var max_hp = 5
+
+
+var enemy_position: Vector2 
+
+signal died
+signal got_pickup
+signal hurt
+
+func _physics_process(delta: float) -> void:
+	var areas = $HurtBox.get_overlapping_areas()
+	for area in areas:
+		if area.is_in_group("enemies") and not invincible:
+			damage_player(area)
+	
+	if not dead:
+		#if invincible:
+			#knockback()
+		#else:
+			
+		if not is_on_floor():
+			#velocity += get_gravity() * delta
+			velocity.y += gravity * delta
+
+		# Handle jump.
+		if Input.is_action_just_pressed("ui_accept") and is_on_floor() and not move_freeze:
+			jump(jump_force)
+		
+			#velocity.y = JUMP_VELOCITY
+		if Input.is_action_just_released("ui_accept") and velocity.y < -jump_release_force and not move_freeze:
+				velocity.y = -jump_release_force
+		
+		#if Input.is_action_just_pressed("ui_accept") and not is_on_floor():
+			##do hover stuff here?
+			#pass
+		# Get the input direction and handle the movement/deceleration.
+		# As good practice, you should replace UI actions with custom gameplay actions.
+		var direction := Input.get_axis("ui_left", "ui_right")
+		
+		if not move_freeze:
+			if direction:
+				velocity.x = direction * SPEED
+			else:
+				velocity.x = move_toward(velocity.x, 0, 10)
+
+		#if abs(velocity.x) < max_speed:
+			#velocity.x += direction  * acceleration
+		if velocity.y >= 500:
+			velocity.y = 500
+		
+		if velocity.y <= -200:
+			velocity.y = -200
+			
+		
+		move_and_slide()
+		update_animations(direction)
+		previous_frame_velocity = velocity
+
+func jump(force):
+	$AnimationPlayer.play("jump")
+	velocity.y = -force
+
+func update_animations(direction):
+	if direction < 0:
+		$Sprite2D.flip_h = true
+	elif direction > 0:
+		$Sprite2D.flip_h = false
+	
+	if move_freeze:
+		$AnimationPlayer.play("hurt")
+	else:
+		if is_on_floor():
+			falling = false
+			if direction == 0:
+				if blinking:
+					$AnimationPlayer.play("blink")
+				else:
+					$AnimationPlayer.play("idle")
+					
+			else:
+				$AnimationPlayer.play("run")
+				if blinking:
+					blinking = false
+					$BlinkTimer.start()
+					
+				#if not $WalkSound.playing and not disabled:
+					#$WalkSound.play()
+				
+				#
+		else:
+			if velocity.y > 0 and previous_frame_velocity.y <= 0:
+				falling = true
+				$AnimationPlayer.play("fall")
+
+#func damage_handler():
+	#if not invincible:
+		#pass
+
+func _on_hurt_box_area_entered(area: Area2D) -> void:
+	#check if the body is in a group? deathpits? then do death stuff
+	if area.is_in_group("deathpits"):
+		died.emit()
+		dead = true
+		hide()
+	
+	if area.is_in_group("enemies") and not invincible:
+		#hurt the player
+		damage_player(area)
+
+func damage_player(area: Area2D):
+	hp -= 1
+	hurt.emit(1)
+	if hp <= 0:
+		died.emit()
+		dead = true
+		$AnimationPlayer.play("hurt")
+	else:
+		enemy_position = area.global_position
+		knockback(0.1,300,50)
+		#knockback()
+		iframes()
+
+func _on_blink_timer_timeout() -> void:
+	blinking = not blinking
+	$BlinkTimer.wait_time = randf_range(2,5)
+	$BlinkTimer.start()
+	
+
+func _on_pickup_box_body_entered(body: Node2D) -> void:
+	if body.is_in_group("pickups"): 
+		got_pickup.emit()
+		body.queue_free() # Replace with function body.
+
+func iframes():
+	$IFrameAnimationPlayer.play("iframes")
+	$IFramesTimer.start()
+	$MoveFreezeTimer.start()
+	invincible = true
+	move_freeze = true
+
+#func _on_hurt_box_body_entered(body: Node2D) -> void:
+	#if body.is_in_group("enemies") and not invincible:
+		##hurt the player
+		#hp -= 1
+		#hurt.emit(1)
+		#if hp <= 0:
+			#died.emit()
+			#dead = true
+			#hide()
+		#else:
+			#enemy_position = body.global_position
+			##knockback(1,1500,50)
+			##knockback()
+			#iframes()
+			
+
+func knockback(force: float, x_pos: float, up_force: float):
+	if (global_position.x - enemy_position.x > 0): #enemy is to the left of player
+		velocity = Vector2(force * 2 * x_pos, -force * up_force)
+		print(velocity)
+	else: #enemy is to the right of player
+		velocity = Vector2(-force * 2 * x_pos, -force * up_force)
+		print(velocity)
+
+#func knockback():
+	#if (global_position.x - enemy_position.x > 0): #enemy is to the left of player
+		#velocity.x = 100
+		#
+	#else: #enemy is to the right of player
+		#velocity.x = -100
+	##move_and_slide()
+	
+func _on_i_frames_timer_timeout() -> void:
+	$IFrameAnimationPlayer.stop()
+	modulate.a = 1
+	invincible = false
+
+
+func _on_move_freeze_timer_timeout() -> void:
+	move_freeze = false 
+
+
+#func _on_hitbox_area_entered(area: Area2D) -> void:
+	#if area.is_in_group("enemies"):
+		#velocity.y = -100
+		#print("should jump now") # Replace with function body.
