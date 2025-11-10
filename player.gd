@@ -160,11 +160,12 @@ func update_animations(direction):
 func _on_hurt_box_area_entered(area: Area2D) -> void:
 	#check if the body is in a group? deathpits? then do death stuff
 	if area.is_in_group("deathpits"):
-		died.emit()
+		reset_movement()
 		dead = true
+		died.emit()
 		hide()
 	
-	if area.is_in_group("enemies") and not invincible:
+	if area.is_in_group("enemies_") and not invincible:
 		#hurt the player
 		damage_player(area)
 
@@ -186,7 +187,9 @@ func _on_blink_timer_timeout() -> void:
 	blinking = not blinking
 	$BlinkTimer.wait_time = randf_range(2,5)
 	$BlinkTimer.start()
-	
+
+func reset_movement():
+	velocity = Vector2.ZERO
 
 func _on_pickup_box_body_entered(body: Node2D) -> void:
 	if body.is_in_group("pickups"): 

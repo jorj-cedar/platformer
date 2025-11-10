@@ -2,10 +2,12 @@ extends Node2D
 
 @export var pickup_scene : PackedScene
 @export var enemy_scene : PackedScene
+@export var f_enemy_scene : PackedScene
 
 var total_pickups = 0
 @onready var pickup_spawns = []
 @onready var enemy_spawns = []
+@onready var f_enemy_spawns = []
 
 var player_hp
 
@@ -18,7 +20,9 @@ func _ready() -> void:
 	
 	for e in $Enemies.get_children():
 		enemy_spawns.append(Vector2(e.position))
-	#
+	
+	for f in $FlyingEnemies.get_children():
+		f_enemy_spawns.append(Vector2(f.position))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -46,6 +50,7 @@ func new_game():
 	
 	refresh_items($Pickups,pickup_spawns,pickup_scene)
 	refresh_items($Enemies,enemy_spawns,enemy_scene)
+	refresh_items($FlyingEnemies,f_enemy_spawns,f_enemy_scene)
 	
 	$HUD/Dead.hide()
 	$Player/Camera2D.limit_top = 0

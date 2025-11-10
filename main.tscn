@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dpr6cvc2y1gbk" path="res://parallax_assets/frontscape.png" id="7_dg77c"]
 [ext_resource type="Texture2D" uid="uid://ce3uuhf71ugi8" path="res://parallax_assets/window2.png" id="8_efxa6"]
 [ext_resource type="Texture2D" uid="uid://cwmfhofvnm0co" path="res://parallax_assets/framing2.png" id="9_efxa6"]
-[ext_resource type="PackedScene" uid="uid://cmmnl3keb5jq0" path="res://flying_enemy.tscn" id="12_dg77c"]
+[ext_resource type="PackedScene" uid="uid://chu7lmy5exxyd" path="res://flying_enemy.tscn" id="13_ycdy4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
 size = Vector2(252, 20)
@@ -114,6 +114,7 @@ size = Vector2(6, 166)
 script = ExtResource("1_h2yge")
 pickup_scene = ExtResource("4_lquwl")
 enemy_scene = ExtResource("5_lquwl")
+f_enemy_scene = ExtResource("13_ycdy4")
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -587,11 +588,14 @@ position = Vector2(425, 130)
 
 [node name="FlyingEnemies" type="Node2D" parent="."]
 
-[node name="FlyingEnemy" parent="FlyingEnemies" instance=ExtResource("12_dg77c")]
-position = Vector2(1779, 0)
+[node name="FlyingEnemy4" parent="FlyingEnemies" instance=ExtResource("13_ycdy4")]
+position = Vector2(106, 143)
 
-[node name="FlyingEnemy2" parent="FlyingEnemies" instance=ExtResource("12_dg77c")]
-position = Vector2(105, 0)
+[node name="FlyingEnemy5" parent="FlyingEnemies" instance=ExtResource("13_ycdy4")]
+position = Vector2(174, 106)
+
+[node name="FlyingEnemy6" parent="FlyingEnemies" instance=ExtResource("13_ycdy4")]
+position = Vector2(257, 69)
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="got_pickup" from="Player" to="." method="_on_player_got_pickup"]

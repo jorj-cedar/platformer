@@ -18,13 +18,14 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if direction < 0:
-		$Sprite2D.flip_h = false
-	elif direction > 0:
-		$Sprite2D.flip_h = true
+	
 	
 	if walking and not dead:
 		position.x += direction * speed * delta
+		if direction < 0:
+			$Sprite2D.flip_h = false
+		elif direction > 0:
+			$Sprite2D.flip_h = true
 		$AnimationPlayer.play("walk")
 		if (position.x >= start_pos + walk_distance):
 			direction = -1
