@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://caefq76q6rh7f" path="res://enemy-sprite-sheet3.png" id="2_4gyqm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]
-size = Vector2(22, 26)
+size = Vector2(22, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qi2p4"]
 size = Vector2(29.5, 22)
@@ -213,7 +213,7 @@ texture = ExtResource("2_4gyqm")
 hframes = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 3)
+position = Vector2(1, 3.5)
 shape = SubResource("RectangleShape2D_4gyqm")
 
 [node name="MoveTimer" type="Timer" parent="."]
