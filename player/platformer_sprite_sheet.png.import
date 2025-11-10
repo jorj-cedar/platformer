@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ow8bjr40wjhy"
-path="res://.godot/imported/flying-enemy-sheet.png-385d2d5922e87e0feae2e1ef444fe607.ctex"
+uid="uid://t71mews1tiuh"
+path="res://.godot/imported/platformer_sprite_sheet.png-684f197c5f8416b6856b20a26a83da63.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://flying-enemy-sheet.png"
-dest_files=["res://.godot/imported/flying-enemy-sheet.png-385d2d5922e87e0feae2e1ef444fe607.ctex"]
+source_file="res://player/platformer_sprite_sheet.png"
+dest_files=["res://.godot/imported/platformer_sprite_sheet.png-684f197c5f8416b6856b20a26a83da63.ctex"]
 
 [params]
 

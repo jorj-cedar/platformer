@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2v6argqxr1vb"
-path="res://.godot/imported/platformer_sprite_sheet3.png-3bc2cb768bc1455152ae7325fce5245f.ctex"
+uid="uid://cqrwjd6chi83w"
+path="res://.godot/imported/dead.png-303cdb848411668355abbb1aa4a4ae58.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://platformer_sprite_sheet3.png"
-dest_files=["res://.godot/imported/platformer_sprite_sheet3.png-3bc2cb768bc1455152ae7325fce5245f.ctex"]
+source_file="res://hud/dead.png"
+dest_files=["res://.godot/imported/dead.png-303cdb848411668355abbb1aa4a4ae58.ctex"]
 
 [params]
 

@@ -14,7 +14,13 @@ var player_hp
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player_hp = $Player.hp
-	
+	save_item_locations()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func save_item_locations():
 	for p in $Pickups.get_children():
 		pickup_spawns.append(Vector2(p.position))
 	
@@ -23,11 +29,6 @@ func _ready() -> void:
 	
 	for f in $FlyingEnemies.get_children():
 		f_enemy_spawns.append(Vector2(f.position))
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func refresh_items(node: Node2D,spawn_bank,new_scene):
 	for k in node.get_children(): #wipe all remaining pickups or enemies
@@ -60,10 +61,8 @@ func new_game():
 
 
 func _on_player_died() -> void:
-	#$Dead.position.x = $Player.position.x - 160
 	$HUD/Dead.show()
 	$RespawnTimer.start()
-	$HUD/Health.text = str(0)
 	
 
 
@@ -72,7 +71,14 @@ func _on_respawn_timer_timeout() -> void:
 
 func update_hud():
 	$HUD/PickupCounter.text = str(total_pickups)
-	$HUD/Health.text = str(player_hp)
+	
+	if player_hp < $Player.max_hp:
+		for h in $HUD/HealthBar.get_children():
+			if h.get_index() > (player_hp -1):
+				h.frame = 1
+	elif player_hp == $Player.max_hp:
+		for h in $HUD/HealthBar.get_children():
+			h.frame = 0
 
 func _on_player_got_pickup() -> void:
 	total_pickups += 1

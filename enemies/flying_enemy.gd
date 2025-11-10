@@ -9,6 +9,8 @@ var speed = 30
 var bob_max = 3
 var bob_amount = 0.1
 
+@export var dead_prop_scene : PackedScene
+
 
 var dead = false
 
@@ -65,17 +67,38 @@ func _on_move_timer_timeout() -> void:
 	if not dead:
 		walking = not walking # Replace with function body.
 
-
+func spawn_props():
+	var dead_prop_front = dead_prop_scene.instantiate()
+	dead_prop_front.position = position + Vector2(5,2)
+	#dead_prop_front.rotation = 45
+	dead_prop_front.direction = 1
+	get_parent().add_child(dead_prop_front)
+	
+	var dead_prop_back = dead_prop_scene.instantiate()
+	dead_prop_back.position = position + Vector2(-5,2)
+	dead_prop_back.get_node("Sprite2D").frame = 1
+	#dead_prop_back.rotation = -45
+	dead_prop_back.direction = -1
+	get_parent().add_child(dead_prop_back)
+		
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("player"):
 		dead = true
 		#process_mode = PROCESS_MODE_DISABLED
-		#$AnimationPlayer.play("death2")
+		
+		
 		
 		if Input.is_action_pressed("jump"):
 			area.get_parent().velocity.y = -250
+			area.get_parent().available_dashes = 1
 		else:
 			area.get_parent().velocity.y = -150
+			area.get_parent().available_dashes = 1
+			
+		$AnimationPlayer.play("death")
+		
+		
+		
 		#var tween = get_tree().create_tween()
 		#tween.tween_property(self,"position.x",(position.x + 30),1)
 		#await tween.finished

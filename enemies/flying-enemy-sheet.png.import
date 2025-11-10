@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqrwjd6chi83w"
-path="res://.godot/imported/dead.png-a5d023116f1ddd8c8e9f17723239cfaa.ctex"
+uid="uid://ow8bjr40wjhy"
+path="res://.godot/imported/flying-enemy-sheet.png-bdb30e9ef509cad3855b6f7940ce3fa5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://dead.png"
-dest_files=["res://.godot/imported/dead.png-a5d023116f1ddd8c8e9f17723239cfaa.ctex"]
+source_file="res://enemies/flying-enemy-sheet.png"
+dest_files=["res://.godot/imported/flying-enemy-sheet.png-bdb30e9ef509cad3855b6f7940ce3fa5.ctex"]
 
 [params]
 

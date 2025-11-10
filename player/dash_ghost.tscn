@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dtejqbb3is2cq"]
 
-[ext_resource type="Texture2D" uid="uid://b2v6argqxr1vb" path="res://platformer_sprite_sheet3.png" id="1_63onu"]
+[ext_resource type="Texture2D" uid="uid://b2v6argqxr1vb" path="res://player/platformer_sprite_sheet3.png" id="1_63onu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_77cs2"]
 

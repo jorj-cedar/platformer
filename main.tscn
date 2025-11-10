@@ -1,17 +1,17 @@
 [gd_scene load_steps=25 format=3 uid="uid://bpmrvciu2q13f"]
 
 [ext_resource type="Script" uid="uid://d08yq612hh4tq" path="res://main.gd" id="1_h2yge"]
-[ext_resource type="PackedScene" uid="uid://b0l4pcu0l5b5m" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://b0l4pcu0l5b5m" path="res://player/player.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://cn2am1ycqqapm" path="res://bg_v1.png" id="4_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cqexumwk8kx6c" path="res://pickup.tscn" id="4_lquwl"]
 [ext_resource type="Texture2D" uid="uid://cwrl5nxw40jsq" path="res://parallax_assets/space.png" id="5_4c57u"]
-[ext_resource type="PackedScene" uid="uid://h708p2wjtnm2" path="res://hud.tscn" id="5_7mycd"]
-[ext_resource type="PackedScene" uid="uid://b4aos15124upa" path="res://enemy.tscn" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://h708p2wjtnm2" path="res://hud/hud.tscn" id="5_7mycd"]
+[ext_resource type="PackedScene" uid="uid://b4aos15124upa" path="res://enemies/enemy.tscn" id="5_lquwl"]
 [ext_resource type="Texture2D" uid="uid://bwvr1ixpk71k0" path="res://parallax_assets/pyramid.png" id="6_efxa6"]
 [ext_resource type="Texture2D" uid="uid://dpr6cvc2y1gbk" path="res://parallax_assets/frontscape.png" id="7_dg77c"]
 [ext_resource type="Texture2D" uid="uid://ce3uuhf71ugi8" path="res://parallax_assets/window2.png" id="8_efxa6"]
 [ext_resource type="Texture2D" uid="uid://cwmfhofvnm0co" path="res://parallax_assets/framing2.png" id="9_efxa6"]
-[ext_resource type="PackedScene" uid="uid://chu7lmy5exxyd" path="res://flying_enemy.tscn" id="13_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://chu7lmy5exxyd" path="res://enemies/flying_enemy.tscn" id="13_ycdy4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
 size = Vector2(252, 20)
@@ -105,7 +105,7 @@ size = Vector2(122, 4)
 size = Vector2(7, 77)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
-size = Vector2(1896.25, 149.5)
+size = Vector2(2853.25, 149.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ig7tw"]
 size = Vector2(6, 166)
@@ -499,7 +499,7 @@ position = Vector2(314, 217)
 collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Zones/DeathPit"]
-position = Vector2(662.875, 58.25)
+position = Vector2(1141.375, 58.25)
 shape = SubResource("RectangleShape2D_h2yge")
 
 [node name="LWall" type="StaticBody2D" parent="."]
@@ -589,13 +589,13 @@ position = Vector2(425, 130)
 [node name="FlyingEnemies" type="Node2D" parent="."]
 
 [node name="FlyingEnemy4" parent="FlyingEnemies" instance=ExtResource("13_ycdy4")]
-position = Vector2(106, 143)
+position = Vector2(1785, 126)
 
 [node name="FlyingEnemy5" parent="FlyingEnemies" instance=ExtResource("13_ycdy4")]
-position = Vector2(174, 106)
+position = Vector2(1853, 89)
 
 [node name="FlyingEnemy6" parent="FlyingEnemies" instance=ExtResource("13_ycdy4")]
-position = Vector2(257, 69)
+position = Vector2(1936, 52)
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="got_pickup" from="Player" to="." method="_on_player_got_pickup"]

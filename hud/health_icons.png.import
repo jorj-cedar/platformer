@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://t71mews1tiuh"
-path="res://.godot/imported/platformer_sprite_sheet.png-c1f546a7fa72cff76729abd0f7c44120.ctex"
+uid="uid://d25xam58ahrtc"
+path="res://.godot/imported/health_icons.png-a674e0a148a341e32d96213145a27544.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://platformer_sprite_sheet.png"
-dest_files=["res://.godot/imported/platformer_sprite_sheet.png-c1f546a7fa72cff76729abd0f7c44120.ctex"]
+source_file="res://hud/health_icons.png"
+dest_files=["res://.godot/imported/health_icons.png-a674e0a148a341e32d96213145a27544.ctex"]
 
 [params]
 

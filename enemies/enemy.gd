@@ -65,8 +65,10 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		
 		if Input.is_action_pressed("jump"):
 			area.get_parent().velocity.y = -250
+			area.get_parent().available_dashes = 1
 		else:
 			area.get_parent().velocity.y = -150
+			area.get_parent().available_dashes = 1
 		#var tween = get_tree().create_tween()
 		#tween.tween_property(self,"position.x",(position.x + 30),1)
 		#await tween.finished

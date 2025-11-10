@@ -176,6 +176,7 @@ func damage_player(area: Area2D):
 		died.emit()
 		dead = true
 		$AnimationPlayer.play("hurt")
+		reset_movement()
 	else:
 		enemy_position = area.global_position
 		knockback(0.1,300,50)

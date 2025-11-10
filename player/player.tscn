@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=3 uid="uid://b0l4pcu0l5b5m"]
 
-[ext_resource type="Script" uid="uid://car3ut1gbhrb6" path="res://player.gd" id="1_onrkg"]
-[ext_resource type="PackedScene" uid="uid://dtejqbb3is2cq" path="res://dash_ghost.tscn" id="2_i3pqv"]
-[ext_resource type="Texture2D" uid="uid://b2v6argqxr1vb" path="res://platformer_sprite_sheet3.png" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://car3ut1gbhrb6" path="res://player/player.gd" id="1_onrkg"]
+[ext_resource type="PackedScene" uid="uid://dtejqbb3is2cq" path="res://player/dash_ghost.tscn" id="2_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://b2v6argqxr1vb" path="res://player/platformer_sprite_sheet3.png" id="2_onrkg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
 size = Vector2(15, 30)
@@ -39,6 +39,33 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [8, 16, 8, 16, 8, 16, 8]
+}
+
+[sub_resource type="Animation" id="Animation_nvl01"]
+resource_name = "dash"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [18, 19]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
 }
 
 [sub_resource type="Animation" id="Animation_1jxqw"]
@@ -121,33 +148,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [12, 13, 14, 13]
-}
-
-[sub_resource type="Animation" id="Animation_nvl01"]
-resource_name = "dash"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.099999994),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [18, 19]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"values": []
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dw050"]

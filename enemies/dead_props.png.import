@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://caefq76q6rh7f"
-path="res://.godot/imported/enemy-sprite-sheet3.png-0906e299ee0ab0e567c8b5052b421d0e.ctex"
+uid="uid://c6wlx4pa5e7wd"
+path="res://.godot/imported/dead_props.png-13f885f8e7ed7de476191175acd23cf9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://enemy-sprite-sheet3.png"
-dest_files=["res://.godot/imported/enemy-sprite-sheet3.png-0906e299ee0ab0e567c8b5052b421d0e.ctex"]
+source_file="res://enemies/dead_props.png"
+dest_files=["res://.godot/imported/dead_props.png-13f885f8e7ed7de476191175acd23cf9.ctex"]
 
 [params]
 
