@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cqexumwk8kx6c"]
 
-[ext_resource type="Texture2D" uid="uid://bco4obm281167" path="res://carrot-outline.png" id="1_iqk3k"]
+[ext_resource type="Texture2D" uid="uid://bco4obm281167" path="res://pickups/carrot-outline.png" id="1_iqk3k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_weqpt"]
 radius = 9.0

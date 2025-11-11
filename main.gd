@@ -104,3 +104,8 @@ func _on_player_hurt(damage) -> void:
 	if not $Player.dead:
 		$HUD/AnimationPlayer.play("flash") #or call a flash function once hud gets a script
 	update_hud() # Replace with function body.
+
+
+#func _on_player_health_up(amount) -> void:
+	#player_hp += amount
+	#update_hud()

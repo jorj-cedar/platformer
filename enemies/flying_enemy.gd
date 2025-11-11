@@ -97,6 +97,8 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 			
 		$AnimationPlayer.play("death")
 		
+		if area.get_parent().dashing == true:
+			area.get_parent().dashing = false
 		
 		
 		#var tween = get_tree().create_tween()

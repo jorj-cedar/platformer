@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bco4obm281167"
-path="res://.godot/imported/carrot-outline.png-1a884bd94e6a15afbad85f85e535617a.ctex"
+uid="uid://dgo4bxc6rg7ul"
+path="res://.godot/imported/carrot-sprites.png-5a90b0e4858675dc373dbce42f1bb678.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://carrot-outline.png"
-dest_files=["res://.godot/imported/carrot-outline.png-1a884bd94e6a15afbad85f85e535617a.ctex"]
+source_file="res://pickups/carrot-sprites.png"
+dest_files=["res://.godot/imported/carrot-sprites.png-5a90b0e4858675dc373dbce42f1bb678.ctex"]
 
 [params]
 

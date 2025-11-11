@@ -27,6 +27,7 @@ window/stretch/mode="viewport"
 
 player=""
 enemies_=""
+health_items=""
 
 [input]
 

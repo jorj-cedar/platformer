@@ -32,6 +32,7 @@ var enemy_position: Vector2
 signal died
 signal got_pickup
 signal hurt
+signal health_up
 
 func _physics_process(delta: float) -> void:
 	var areas = $HurtBox.get_overlapping_areas()
@@ -195,7 +196,12 @@ func reset_movement():
 func _on_pickup_box_body_entered(body: Node2D) -> void:
 	if body.is_in_group("pickups"): 
 		got_pickup.emit()
-		body.queue_free() # Replace with function body.
+		body.queue_free()
+	
+	#if body.is_in_group("health_items") and hp < max_hp:
+		#hp += 1
+		#health_up.emit(1)
+		#body.queue_free()
 
 func iframes():
 	$IFrameAnimationPlayer.play("iframes")

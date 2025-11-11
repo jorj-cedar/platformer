@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rgietwlruus7"
-path="res://.godot/imported/theguymovement.png-7f32ed91ba13ebec733e657cdec20185.ctex"
+uid="uid://oxp0k85imqgr"
+path="res://.godot/imported/level_background.png-7504d8c9a3fbd37fa0b0c304f5a390b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://theguymovement.png"
-dest_files=["res://.godot/imported/theguymovement.png-7f32ed91ba13ebec733e657cdec20185.ctex"]
+source_file="res://parallax_assets/level_background.png"
+dest_files=["res://.godot/imported/level_background.png-7504d8c9a3fbd37fa0b0c304f5a390b3.ctex"]
 
 [params]
 

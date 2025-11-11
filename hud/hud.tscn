@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://h708p2wjtnm2"]
 
 [ext_resource type="Texture2D" uid="uid://cqrwjd6chi83w" path="res://hud/dead.png" id="1_37p78"]
-[ext_resource type="Texture2D" uid="uid://bco4obm281167" path="res://carrot-outline.png" id="1_318vg"]
+[ext_resource type="Texture2D" uid="uid://bco4obm281167" path="res://pickups/carrot-outline.png" id="1_318vg"]
 [ext_resource type="Texture2D" uid="uid://d25xam58ahrtc" path="res://hud/health_icons.png" id="3_318vg"]
 
 [sub_resource type="Animation" id="Animation_8sq4i"]

@@ -69,6 +69,9 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		else:
 			area.get_parent().velocity.y = -150
 			area.get_parent().available_dashes = 1
+		
+		if area.get_parent().dashing == true:
+			area.get_parent().dashing = false
 		#var tween = get_tree().create_tween()
 		#tween.tween_property(self,"position.x",(position.x + 30),1)
 		#await tween.finished
