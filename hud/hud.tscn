@@ -106,3 +106,13 @@ hframes = 2
 texture = ExtResource("3_318vg")
 offset = Vector2(90, 11)
 hframes = 2
+
+[node name="HP6" type="Sprite2D" parent="HealthBar"]
+texture = ExtResource("3_318vg")
+offset = Vector2(110, 11)
+hframes = 2
+
+[node name="HP7" type="Sprite2D" parent="HealthBar"]
+texture = ExtResource("3_318vg")
+offset = Vector2(130, 11)
+hframes = 2

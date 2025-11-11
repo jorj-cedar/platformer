@@ -28,6 +28,7 @@ window/stretch/mode="viewport"
 player=""
 enemies_=""
 health_items=""
+max_health_up=""
 
 [input]
 
