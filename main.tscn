@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bpmrvciu2q13f"]
+[gd_scene load_steps=28 format=3 uid="uid://bpmrvciu2q13f"]
 
 [ext_resource type="Script" uid="uid://d08yq612hh4tq" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://b0l4pcu0l5b5m" path="res://player/player.tscn" id="1_ig7tw"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://oxp0k85imqgr" path="res://parallax_assets/level_background.png" id="10_dg77c"]
 [ext_resource type="PackedScene" uid="uid://dklb3s4f48kq3" path="res://pickups/health_item.tscn" id="13_w48qg"]
 [ext_resource type="PackedScene" uid="uid://chu7lmy5exxyd" path="res://enemies/flying_enemy.tscn" id="13_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://bu8y10yynd1xv" path="res://pickups/max_health_up.tscn" id="14_w48qg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
 size = Vector2(252, 20)
@@ -108,6 +109,9 @@ size = Vector2(7, 77)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
 size = Vector2(2853.25, 149.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w48qg"]
+size = Vector2(112, 86)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ig7tw"]
 size = Vector2(6, 166)
 
@@ -116,6 +120,8 @@ script = ExtResource("1_h2yge")
 pickup_scene = ExtResource("4_lquwl")
 enemy_scene = ExtResource("5_lquwl")
 f_enemy_scene = ExtResource("13_ycdy4")
+health_item_scene = ExtResource("13_w48qg")
+max_health_up_scene = ExtResource("14_w48qg")
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -218,22 +224,6 @@ offset_bottom = 30.0
 scale = Vector2(6.3358803, 0.49938792)
 color = Color(0, 0, 0, 1)
 
-[node name="Floor3" type="StaticBody2D" parent="FloorsNPlatforms"]
-position = Vector2(1149, 159)
-scale = Vector2(0.48048538, 8.412646)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Floor3"]
-shape = SubResource("RectangleShape2D_0xm2m")
-
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Floor3"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
-scale = Vector2(6.3358803, 0.49938792)
-color = Color(0, 0, 0, 1)
-
 [node name="Floor4" type="StaticBody2D" parent="FloorsNPlatforms"]
 position = Vector2(958, 171)
 scale = Vector2(0.14275104, 1.2132065)
@@ -243,6 +233,83 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_0xm2m")
 
 [node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Floor4"]
+offset_left = -126.00001
+offset_top = -10.0
+offset_right = -86.00001
+offset_bottom = 30.0
+scale = Vector2(6.3358803, 0.49938792)
+color = Color(0, 0, 0, 1)
+
+[node name="SecretInnerPlatform" type="StaticBody2D" parent="FloorsNPlatforms"]
+position = Vector2(1148, 123)
+scale = Vector2(0.18046868, 0.2612008)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/SecretInnerPlatform"]
+shape = SubResource("RectangleShape2D_0xm2m")
+one_way_collision = true
+
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/SecretInnerPlatform"]
+offset_left = -126.00001
+offset_top = -10.0
+offset_right = -86.00001
+offset_bottom = 30.0
+scale = Vector2(6.3358803, 0.49938792)
+color = Color(0, 0, 0, 1)
+
+[node name="SecretRoof" type="StaticBody2D" parent="FloorsNPlatforms"]
+position = Vector2(1149, 80.99999)
+scale = Vector2(0.48523805, 0.35685635)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/SecretRoof"]
+scale = Vector2(0.99999994, 1)
+shape = SubResource("RectangleShape2D_0xm2m")
+one_way_collision = true
+
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/SecretRoof"]
+offset_left = -126.00001
+offset_top = -10.0
+offset_right = -86.00001
+offset_bottom = 30.0
+scale = Vector2(6.3358803, 0.49938792)
+color = Color(0, 0, 0, 1)
+
+[node name="SecretFloor" type="StaticBody2D" parent="FloorsNPlatforms"]
+position = Vector2(1151, 173)
+scale = Vector2(0.50316834, 0.35685635)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/SecretFloor"]
+scale = Vector2(0.99999994, 1)
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/SecretFloor"]
+offset_left = -126.00001
+offset_top = -10.0
+offset_right = -86.00001
+offset_bottom = 30.0
+scale = Vector2(6.3358803, 0.49938792)
+color = Color(0, 0, 0, 1)
+
+[node name="SecretHider" type="ColorRect" parent="FloorsNPlatforms"]
+z_index = 1
+offset_left = 1096.0
+offset_top = 82.0
+offset_right = 1209.0
+offset_bottom = 182.0
+color = Color(0, 0, 0, 1)
+
+[node name="SecretWall" type="StaticBody2D" parent="FloorsNPlatforms"]
+position = Vector2(1092, 134)
+scale = Vector2(0.0338728, 4.9682984)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/SecretWall"]
+scale = Vector2(0.99999994, 1)
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/SecretWall"]
 offset_left = -126.00001
 offset_top = -10.0
 offset_right = -86.00001
@@ -545,6 +612,13 @@ collision_layer = 16
 position = Vector2(1141.375, 58.25)
 shape = SubResource("RectangleShape2D_h2yge")
 
+[node name="SecretReveal" type="Area2D" parent="Zones"]
+position = Vector2(1153, 127)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zones/SecretReveal"]
+shape = SubResource("RectangleShape2D_w48qg")
+
 [node name="LWall" type="StaticBody2D" parent="."]
 position = Vector2(-3, 81)
 
@@ -640,14 +714,24 @@ position = Vector2(1914, 145)
 [node name="FlyingEnemy6" parent="FlyingEnemies" instance=ExtResource("13_ycdy4")]
 position = Vector2(2021, 146)
 
-[node name="HealthItem" parent="." instance=ExtResource("13_w48qg")]
-position = Vector2(110, 0)
+[node name="HealthItems" type="Node2D" parent="."]
+
+[node name="HealthItem" parent="HealthItems" instance=ExtResource("13_w48qg")]
+position = Vector2(2194, 144)
+
+[node name="MaxHealthItems" type="Node2D" parent="."]
+
+[node name="MaxHealthUp" parent="MaxHealthItems" instance=ExtResource("14_w48qg")]
+position = Vector2(1149, 145)
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="got_pickup" from="Player" to="." method="_on_player_got_pickup"]
 [connection signal="health_up" from="Player" to="." method="_on_player_health_up"]
 [connection signal="hurt" from="Player" to="." method="_on_player_hurt"]
+[connection signal="max_health_up" from="Player" to="." method="_on_player_max_health_up"]
 [connection signal="body_entered" from="Zones/CameraChange" to="." method="_on_camera_change_body_entered"]
 [connection signal="body_entered" from="Zones/CameraChangeBack" to="." method="_on_camera_change_back_body_entered"]
 [connection signal="body_entered" from="Zones/CameraChangeBack2" to="." method="_on_camera_change_back_body_entered"]
+[connection signal="body_entered" from="Zones/SecretReveal" to="." method="_on_secret_reveal_body_entered"]
+[connection signal="body_exited" from="Zones/SecretReveal" to="." method="_on_secret_reveal_body_exited"]
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]

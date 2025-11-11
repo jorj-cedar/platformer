@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bu8y10yynd1xv"]
+
+[ext_resource type="Script" uid="uid://wsg88ljm4pn2" path="res://pickups/health_item.gd" id="1_ax1ww"]
+[ext_resource type="Texture2D" uid="uid://xtfqs38v63mv" path="res://pickups/max_health_up.png" id="1_q7km8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ax1ww"]
+
+[node name="MaxHealthUp" type="RigidBody2D" groups=["max_health_up"]]
+collision_layer = 64
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_ax1ww")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_q7km8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ax1ww")

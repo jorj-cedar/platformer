@@ -33,11 +33,12 @@ signal died
 signal got_pickup
 signal hurt
 signal health_up
+signal max_health_up
 
 func _physics_process(delta: float) -> void:
 	var areas = $HurtBox.get_overlapping_areas()
 	for area in areas:
-		if area.is_in_group("enemies") and not invincible:
+		if area.is_in_group("enemies_") and not invincible:
 			damage_player(area)
 	
 	if not dead:
@@ -198,10 +199,17 @@ func _on_pickup_box_body_entered(body: Node2D) -> void:
 		got_pickup.emit()
 		body.queue_free()
 	
-	#if body.is_in_group("health_items") and hp < max_hp:
-		#hp += 1
-		#health_up.emit(1)
-		#body.queue_free()
+	if body.is_in_group("health_items") and hp < max_hp:
+		hp += 1
+		health_up.emit(1)
+		body.queue_free()
+		
+	if body.is_in_group("max_health_up"):
+		max_hp += 1
+		hp = max_hp #full heal
+		max_health_up.emit(1)
+		body.queue_free()
+		
 
 func iframes():
 	$IFrameAnimationPlayer.play("iframes")
