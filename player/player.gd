@@ -20,6 +20,9 @@ var falling = false
 var blinking = false
 var invincible = false
 var move_freeze = false
+
+var got_dash = false
+
 var dashing = false
 var available_dashes = 1
 var dead
@@ -45,7 +48,7 @@ func _physics_process(delta: float) -> void:
 		#if invincible:
 			#knockback()
 		#else:
-		if is_on_floor():
+		if is_on_floor() and not dashing:
 			available_dashes = 1
 			
 		if not is_on_floor() and not dashing:
@@ -73,7 +76,7 @@ func _physics_process(delta: float) -> void:
 			else:
 				velocity.x = move_toward(velocity.x, 0, 10)
 		
-		if Input.is_action_just_pressed("dash") and available_dashes > 0:
+		if Input.is_action_just_pressed("dash") and available_dashes > 0 and got_dash and not move_freeze:
 			dashing = true
 			dash()
 			
@@ -199,17 +202,24 @@ func _on_pickup_box_body_entered(body: Node2D) -> void:
 		got_pickup.emit()
 		body.queue_free()
 	
-	if body.is_in_group("health_items") and hp < max_hp:
-		hp += 1
-		health_up.emit(1)
-		body.queue_free()
+	if body.is_in_group("health_items"):
+		if hp < max_hp:
+			hp += 1
+			health_up.emit(1)
+			body.queue_free()
+		else:
+			body.get_node("AnimationPlayer").play("flicker")
 		
 	if body.is_in_group("max_health_up"):
 		max_hp += 1
 		hp = max_hp #full heal
 		max_health_up.emit(1)
 		body.queue_free()
-		
+	
+	if body.is_in_group("dash_powerup"):
+		got_dash = true
+		#add powerup stuff here
+		body.queue_free()
 
 func iframes():
 	$IFrameAnimationPlayer.play("iframes")
@@ -218,21 +228,7 @@ func iframes():
 	invincible = true
 	move_freeze = true
 
-#func _on_hurt_box_body_entered(body: Node2D) -> void:
-	#if body.is_in_group("enemies") and not invincible:
-		##hurt the player
-		#hp -= 1
-		#hurt.emit(1)
-		#if hp <= 0:
-			#died.emit()
-			#dead = true
-			#hide()
-		#else:
-			#enemy_position = body.global_position
-			##knockback(1,1500,50)
-			##knockback()
-			#iframes()
-			
+
 
 func knockback(force: float, x_pos: float, up_force: float):
 	if (global_position.x - enemy_position.x > 0): #enemy is to the left of player
@@ -242,13 +238,6 @@ func knockback(force: float, x_pos: float, up_force: float):
 		velocity = Vector2(-force * 2 * x_pos, -force * up_force)
 		print(velocity)
 
-#func knockback():
-	#if (global_position.x - enemy_position.x > 0): #enemy is to the left of player
-		#velocity.x = 100
-		#
-	#else: #enemy is to the right of player
-		#velocity.x = -100
-	##move_and_slide()
 	
 func _on_i_frames_timer_timeout() -> void:
 	$IFrameAnimationPlayer.stop()
@@ -258,9 +247,3 @@ func _on_i_frames_timer_timeout() -> void:
 
 func _on_move_freeze_timer_timeout() -> void:
 	move_freeze = false 
-
-
-#func _on_hitbox_area_entered(area: Area2D) -> void:
-	#if area.is_in_group("enemies"):
-		#velocity.y = -100
-		#print("should jump now") # Replace with function body.

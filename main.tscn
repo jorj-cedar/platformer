@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bpmrvciu2q13f"]
+[gd_scene load_steps=52 format=3 uid="uid://bpmrvciu2q13f"]
 
 [ext_resource type="Script" uid="uid://d08yq612hh4tq" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://b0l4pcu0l5b5m" path="res://player/player.tscn" id="1_ig7tw"]
@@ -11,12 +11,40 @@
 [ext_resource type="Texture2D" uid="uid://dpr6cvc2y1gbk" path="res://parallax_assets/frontscape.png" id="7_dg77c"]
 [ext_resource type="Texture2D" uid="uid://ce3uuhf71ugi8" path="res://parallax_assets/window2.png" id="8_efxa6"]
 [ext_resource type="Texture2D" uid="uid://oxp0k85imqgr" path="res://parallax_assets/level_background.png" id="10_dg77c"]
+[ext_resource type="Texture2D" uid="uid://bfc68a77of5ps" path="res://enviro/platform-edge.png" id="13_2cqfq"]
 [ext_resource type="PackedScene" uid="uid://dklb3s4f48kq3" path="res://pickups/health_item.tscn" id="13_w48qg"]
 [ext_resource type="PackedScene" uid="uid://chu7lmy5exxyd" path="res://enemies/flying_enemy.tscn" id="13_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://bu8y10yynd1xv" path="res://pickups/max_health_up.tscn" id="14_w48qg"]
+[ext_resource type="Texture2D" uid="uid://6dhr7ey0ox2k" path="res://enviro/platform-panel.png" id="14_yaehf"]
+[ext_resource type="Texture2D" uid="uid://doyqlqu8dtgcx" path="res://enviro/small-platform.png" id="15_yaehf"]
+[ext_resource type="Texture2D" uid="uid://cw30g61eaon8y" path="res://enviro/small-platform-sheet.png" id="16_074og"]
+[ext_resource type="Script" uid="uid://bbwc1q4fpgo5a" path="res://enviro/moving_platform_side.gd" id="16_82xsv"]
+[ext_resource type="Script" uid="uid://bp8n5ivurdnda" path="res://enviro/moving_platform_up.gd" id="17_cegan"]
+[ext_resource type="Texture2D" uid="uid://defebovciq2up" path="res://enviro/crate.png" id="19_getpj"]
+[ext_resource type="Texture2D" uid="uid://bxi4npkj42yga" path="res://enviro/wall.png" id="19_ryguw"]
+[ext_resource type="Script" path="res://pickups/health_item.gd" id="23_1u8w0"]
+[ext_resource type="Texture2D" uid="uid://b3lqdg0uf6ghh" path="res://pickups/dash_powerup.png" id="24_0odxb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yaehf"]
+size = Vector2(250, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_074og"]
+size = Vector2(253, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d13ii"]
+size = Vector2(389, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cegan"]
+size = Vector2(33, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_82xsv"]
+size = Vector2(124, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lswn8"]
+size = Vector2(6, 98)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
-size = Vector2(252, 20)
+size = Vector2(40, 10)
 
 [sub_resource type="Animation" id="Animation_7mycd"]
 length = 0.001
@@ -62,43 +90,93 @@ _data = {
 &"move_up": SubResource("Animation_272bh")
 }
 
-[sub_resource type="Animation" id="Animation_5vw27"]
+[sub_resource type="Animation" id="Animation_82xsv"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position:y")
+tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [50.0]
+"values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_1bvp3"]
-resource_name = "move_up_2"
-length = 4.0
+[sub_resource type="Animation" id="Animation_cegan"]
+resource_name = "blink"
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position:y")
+tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.0333333, 2.0333333, 3.0666666),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [50.0, -30.0, -30.0, 50.0]
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_kek77"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_getpj"]
 _data = {
-&"RESET": SubResource("Animation_5vw27"),
-&"move_up_2": SubResource("Animation_1bvp3")
+&"RESET": SubResource("Animation_82xsv"),
+&"blink": SubResource("Animation_cegan")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ryguw"]
+size = Vector2(39.60974, 8.9999695)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_getpj"]
+size = Vector2(40, 9)
+
+[sub_resource type="Animation" id="Animation_d13ii"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ryguw"]
+resource_name = "blink"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1u8w0"]
+_data = {
+&"RESET": SubResource("Animation_d13ii"),
+&"blink": SubResource("Animation_ryguw")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0odxb"]
+size = Vector2(6, 326)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1u8w0"]
+size = Vector2(44, 4.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
 size = Vector2(122, 4)
@@ -114,6 +192,9 @@ size = Vector2(112, 86)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ig7tw"]
 size = Vector2(6, 166)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lswn8"]
+radius = 15.0
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_h2yge")
@@ -192,15 +273,12 @@ offset = Vector2(0, -180)
 
 [node name="FloorsNPlatforms" type="Node2D" parent="."]
 
-[node name="Floor" type="StaticBody2D" parent="FloorsNPlatforms"]
+[node name="BigFloor" type="StaticBody2D" parent="FloorsNPlatforms"]
 position = Vector2(124, 173)
 collision_layer = 3
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Floor"]
-shape = SubResource("RectangleShape2D_0xm2m")
-
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Floor"]
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/BigFloor"]
 offset_left = -126.00001
 offset_top = -10.0
 offset_right = -86.00001
@@ -208,296 +286,699 @@ offset_bottom = 30.0
 scale = Vector2(6.3358803, 0.49938792)
 color = Color(0, 0, 0, 1)
 
-[node name="Floor2" type="StaticBody2D" parent="FloorsNPlatforms"]
-position = Vector2(443, 172)
+[node name="Edge" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(114, 0)
+texture = ExtResource("13_2cqfq")
+
+[node name="Floor" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(91, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor2" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(76, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor3" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(61, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor4" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(46, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor5" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(31, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor6" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(16, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor7" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(1, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor8" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(-14, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor9" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(-29, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor10" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(-44, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor11" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(-59, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor12" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(-74, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor13" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(-89, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor14" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(-104, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor15" type="Sprite2D" parent="FloorsNPlatforms/BigFloor"]
+position = Vector2(-119, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/BigFloor"]
+shape = SubResource("RectangleShape2D_yaehf")
+
+[node name="BigFloor2" type="StaticBody2D" parent="FloorsNPlatforms"]
+position = Vector2(449, 173)
 collision_layer = 3
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Floor2"]
-shape = SubResource("RectangleShape2D_0xm2m")
-
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Floor2"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/BigFloor2"]
+offset_left = -129.00002
+offset_top = -5.9999895
+offset_right = -88.52652
+offset_bottom = 25.990185
 scale = Vector2(6.3358803, 0.49938792)
 color = Color(0, 0, 0, 1)
 
-[node name="Floor4" type="StaticBody2D" parent="FloorsNPlatforms"]
+[node name="Edge" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(114, 0)
+texture = ExtResource("13_2cqfq")
+
+[node name="Floor" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(91, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor2" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(76, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor3" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(61, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor4" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(46, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor5" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(31, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor6" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(16, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor7" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(1, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor8" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(-14, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor9" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(-29, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor10" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(-44, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor11" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(-59, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor12" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(-74, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor13" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(-89, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor14" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(-104, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor15" type="Sprite2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(-119, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/BigFloor2"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_074og")
+
+[node name="BigFloor3" type="StaticBody2D" parent="FloorsNPlatforms"]
+position = Vector2(1496, 176)
+collision_layer = 3
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/BigFloor3"]
+offset_left = -190.99991
+offset_top = -7.0000005
+offset_right = -128.74573
+offset_bottom = 29.044128
+scale = Vector2(6.3358803, 0.49938792)
+color = Color(0, 0, 0, 1)
+
+[node name="Edge" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(192, 0)
+texture = ExtResource("13_2cqfq")
+
+[node name="Floor" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(169, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor2" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(154, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor3" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(139, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor4" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(124, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor5" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(109, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor6" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(94, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor7" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(79, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor8" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(64, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor9" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(49, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor10" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(34, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor11" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(19, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor12" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(4, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor13" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(-11, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor14" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(-26, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor15" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(-41, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor16" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(-56, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor17" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(-71, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor18" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(-86, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor19" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(-101, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor20" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(-116, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor21" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(-131, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor22" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(-146, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor23" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(-161, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor24" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(-176, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor25" type="Sprite2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(-181, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/BigFloor3"]
+position = Vector2(8.5, 0)
+shape = SubResource("RectangleShape2D_d13ii")
+
+[node name="BigFloor4" type="StaticBody2D" parent="FloorsNPlatforms"]
+position = Vector2(2310, 176)
+collision_layer = 3
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/BigFloor4"]
+offset_left = -190.99991
+offset_top = -7.0000005
+offset_right = -128.74573
+offset_bottom = 29.044128
+scale = Vector2(6.3358803, 0.49938792)
+color = Color(0, 0, 0, 1)
+
+[node name="Edge" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(192, 0)
+texture = ExtResource("13_2cqfq")
+
+[node name="Floor" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(169, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor2" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(154, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor3" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(139, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor4" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(124, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor5" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(109, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor6" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(94, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor7" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(79, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor8" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(64, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor9" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(49, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor10" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(34, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor11" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(19, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor12" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(4, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor13" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(-11, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor14" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(-26, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor15" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(-41, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor16" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(-56, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor17" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(-71, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor18" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(-86, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor19" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(-101, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor20" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(-116, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor21" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(-131, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor22" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(-146, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor23" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(-161, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor24" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(-176, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="Floor25" type="Sprite2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(-181, -9)
+texture = ExtResource("14_yaehf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/BigFloor4"]
+position = Vector2(8.5, 0)
+shape = SubResource("RectangleShape2D_d13ii")
+
+[node name="SmallFloor" type="StaticBody2D" parent="FloorsNPlatforms"]
 position = Vector2(958, 171)
-scale = Vector2(0.14275104, 1.2132065)
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Floor4"]
-shape = SubResource("RectangleShape2D_0xm2m")
-
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Floor4"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/SmallFloor"]
+offset_left = -22.999992
+offset_top = -7.0244756
+offset_right = -16.844566
+offset_bottom = 25.063751
 scale = Vector2(6.3358803, 0.49938792)
 color = Color(0, 0, 0, 1)
 
-[node name="SecretInnerPlatform" type="StaticBody2D" parent="FloorsNPlatforms"]
-position = Vector2(1148, 123)
-scale = Vector2(0.18046868, 0.2612008)
-metadata/_edit_group_ = true
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/SmallFloor"]
+texture = ExtResource("13_2cqfq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/SecretInnerPlatform"]
-shape = SubResource("RectangleShape2D_0xm2m")
-one_way_collision = true
+[node name="Sprite2D2" type="Sprite2D" parent="FloorsNPlatforms/SmallFloor"]
+position = Vector2(-13, -9)
+texture = ExtResource("14_yaehf")
 
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/SecretInnerPlatform"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
-scale = Vector2(6.3358803, 0.49938792)
-color = Color(0, 0, 0, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/SmallFloor"]
+position = Vector2(-4.5, 0)
+shape = SubResource("RectangleShape2D_cegan")
 
-[node name="SecretRoof" type="StaticBody2D" parent="FloorsNPlatforms"]
+[node name="Secret" type="Node2D" parent="FloorsNPlatforms"]
+
+[node name="SecretRoof" type="StaticBody2D" parent="FloorsNPlatforms/Secret"]
 position = Vector2(1149, 80.99999)
-scale = Vector2(0.48523805, 0.35685635)
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/SecretRoof"]
-scale = Vector2(0.99999994, 1)
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Secret/SecretRoof"]
+offset_left = -54.999973
+offset_top = -2.9999888
+offset_right = -35.902393
+offset_bottom = 15.02206
+scale = Vector2(6.3358803, 0.49938792)
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretRoof"]
+position = Vector2(55, 0)
+texture = ExtResource("14_yaehf")
+
+[node name="Sprite2D2" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretRoof"]
+position = Vector2(40, 7.6293945e-06)
+texture = ExtResource("14_yaehf")
+
+[node name="Sprite2D3" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretRoof"]
+position = Vector2(25, 7.6293945e-06)
+texture = ExtResource("14_yaehf")
+
+[node name="Sprite2D4" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretRoof"]
+position = Vector2(10, 7.6293945e-06)
+texture = ExtResource("14_yaehf")
+
+[node name="Sprite2D5" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretRoof"]
+position = Vector2(-5, 7.6293945e-06)
+texture = ExtResource("14_yaehf")
+
+[node name="Sprite2D6" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretRoof"]
+position = Vector2(-20, 7.6293945e-06)
+texture = ExtResource("14_yaehf")
+
+[node name="Sprite2D7" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretRoof"]
+position = Vector2(-35, 7.6293945e-06)
+texture = ExtResource("14_yaehf")
+
+[node name="Sprite2D8" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretRoof"]
+position = Vector2(-50, 7.6293945e-06)
+texture = ExtResource("14_yaehf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Secret/SecretRoof"]
+position = Vector2(4, 2.5000076)
+shape = SubResource("RectangleShape2D_82xsv")
+one_way_collision = true
+
+[node name="SecretFloor" type="StaticBody2D" parent="FloorsNPlatforms/Secret"]
+position = Vector2(1149, 173)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Secret/SecretFloor"]
+offset_left = -54.999973
+offset_top = -2.9999888
+offset_right = -35.902393
+offset_bottom = 15.02206
+scale = Vector2(6.3358803, 0.49938792)
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretFloor"]
+position = Vector2(55, 0)
+texture = ExtResource("14_yaehf")
+
+[node name="Sprite2D2" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretFloor"]
+position = Vector2(40, 7.6293945e-06)
+texture = ExtResource("14_yaehf")
+
+[node name="Sprite2D3" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretFloor"]
+position = Vector2(25, 7.6293945e-06)
+texture = ExtResource("14_yaehf")
+
+[node name="Sprite2D4" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretFloor"]
+position = Vector2(10, 7.6293945e-06)
+texture = ExtResource("14_yaehf")
+
+[node name="Sprite2D5" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretFloor"]
+position = Vector2(-5, 7.6293945e-06)
+texture = ExtResource("14_yaehf")
+
+[node name="Sprite2D6" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretFloor"]
+position = Vector2(-20, 7.6293945e-06)
+texture = ExtResource("14_yaehf")
+
+[node name="Sprite2D7" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretFloor"]
+position = Vector2(-35, 7.6293945e-06)
+texture = ExtResource("14_yaehf")
+
+[node name="Sprite2D8" type="Sprite2D" parent="FloorsNPlatforms/Secret/SecretFloor"]
+position = Vector2(-50, 7.6293945e-06)
+texture = ExtResource("14_yaehf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Secret/SecretFloor"]
+position = Vector2(4, 2.5000076)
+shape = SubResource("RectangleShape2D_82xsv")
+
+[node name="SecretWall" type="StaticBody2D" parent="FloorsNPlatforms/Secret"]
+position = Vector2(1093, 134)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Secret/SecretWall"]
+offset_left = -3.9999924
+offset_top = -49.024487
+offset_right = -3.0530014
+offset_bottom = 147.26479
+scale = Vector2(6.3358803, 0.49938792)
+color = Color(0, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Secret/SecretWall"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_lswn8")
+
+[node name="Platform4" type="StaticBody2D" parent="FloorsNPlatforms/Secret"]
+position = Vector2(1155, 125)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Secret/Platform4"]
+position = Vector2(-5, 1.9999924)
 shape = SubResource("RectangleShape2D_0xm2m")
 one_way_collision = true
 
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/SecretRoof"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Secret/Platform4"]
+offset_left = -26.999994
+offset_right = -20.528917
+offset_bottom = 14.066142
 scale = Vector2(6.3358803, 0.49938792)
 color = Color(0, 0, 0, 1)
 
-[node name="SecretFloor" type="StaticBody2D" parent="FloorsNPlatforms"]
-position = Vector2(1151, 173)
-scale = Vector2(0.50316834, 0.35685635)
-metadata/_edit_group_ = true
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/Secret/Platform4"]
+texture = ExtResource("15_yaehf")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/SecretFloor"]
-scale = Vector2(0.99999994, 1)
-shape = SubResource("RectangleShape2D_0xm2m")
-
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/SecretFloor"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
-scale = Vector2(6.3358803, 0.49938792)
-color = Color(0, 0, 0, 1)
+[node name="Sprite2D2" type="Sprite2D" parent="FloorsNPlatforms/Secret/Platform4"]
+position = Vector2(-17, -3.0000076)
+texture = ExtResource("14_yaehf")
 
 [node name="SecretHider" type="ColorRect" parent="FloorsNPlatforms"]
 z_index = 1
 offset_left = 1096.0
-offset_top = 82.0
-offset_right = 1209.0
+offset_top = 84.0
+offset_right = 1214.0
 offset_bottom = 182.0
 color = Color(0, 0, 0, 1)
 
-[node name="SecretWall" type="StaticBody2D" parent="FloorsNPlatforms"]
-position = Vector2(1092, 134)
-scale = Vector2(0.0338728, 4.9682984)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/SecretWall"]
-scale = Vector2(0.99999994, 1)
-shape = SubResource("RectangleShape2D_0xm2m")
-
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/SecretWall"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
-scale = Vector2(6.3358803, 0.49938792)
-color = Color(0, 0, 0, 1)
-
-[node name="Floor5" type="StaticBody2D" parent="FloorsNPlatforms"]
-position = Vector2(1514, 185)
-scale = Vector2(1.6589131, 1.3682134)
-collision_layer = 3
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Floor5"]
-shape = SubResource("RectangleShape2D_0xm2m")
-
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Floor5"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
-scale = Vector2(6.3358803, 0.49938792)
-color = Color(0, 0, 0, 1)
-
-[node name="Floor6" type="StaticBody2D" parent="FloorsNPlatforms"]
-position = Vector2(2350, 180)
-scale = Vector2(1.6589131, 1.3682134)
-collision_layer = 3
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Floor6"]
-shape = SubResource("RectangleShape2D_0xm2m")
-
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Floor6"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
-scale = Vector2(6.3358803, 0.49938792)
-color = Color(0, 0, 0, 1)
-
 [node name="Platform" type="StaticBody2D" parent="FloorsNPlatforms"]
-position = Vector2(534, 121.00001)
-scale = Vector2(0.20112297, 0.2759285)
+position = Vector2(409, 59)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Platform"]
+position = Vector2(-5, 1.9999924)
 shape = SubResource("RectangleShape2D_0xm2m")
 one_way_collision = true
 
 [node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Platform"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
+offset_left = -26.999994
+offset_right = -20.528917
+offset_bottom = 14.066142
 scale = Vector2(6.3358803, 0.49938792)
 color = Color(0, 0, 0, 1)
 
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/Platform"]
+texture = ExtResource("15_yaehf")
+
+[node name="Sprite2D2" type="Sprite2D" parent="FloorsNPlatforms/Platform"]
+position = Vector2(-17, -3.0000076)
+texture = ExtResource("14_yaehf")
+
 [node name="Platform2" type="StaticBody2D" parent="FloorsNPlatforms"]
-position = Vector2(616, 91)
-scale = Vector2(0.20112297, 0.2759285)
+position = Vector2(621, 81)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Platform2"]
+position = Vector2(-5, 1.9999924)
 shape = SubResource("RectangleShape2D_0xm2m")
 one_way_collision = true
 
 [node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Platform2"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
+offset_left = -26.999994
+offset_right = -20.528917
+offset_bottom = 14.066142
 scale = Vector2(6.3358803, 0.49938792)
 color = Color(0, 0, 0, 1)
 
-[node name="MovingPlatform" type="AnimatableBody2D" parent="FloorsNPlatforms"]
-position = Vector2(900, 152.00002)
-scale = Vector2(0.20112297, 0.2759285)
-metadata/_edit_group_ = true
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/Platform2"]
+texture = ExtResource("15_yaehf")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/MovingPlatform"]
-shape = SubResource("RectangleShape2D_0xm2m")
-
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/MovingPlatform"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
-scale = Vector2(6.3358803, 0.49938792)
-color = Color(0, 0, 0, 1)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="FloorsNPlatforms/MovingPlatform"]
-libraries = {
-&"": SubResource("AnimationLibrary_272bh")
-}
-autoplay = "move"
-
-[node name="MovingPlatform2" type="AnimatableBody2D" parent="FloorsNPlatforms"]
-position = Vector2(1050.9999, 151)
-scale = Vector2(0.20112297, 0.2759285)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/MovingPlatform2"]
-shape = SubResource("RectangleShape2D_0xm2m")
-
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/MovingPlatform2"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
-scale = Vector2(6.3358803, 0.49938792)
-color = Color(0, 0, 0, 1)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="FloorsNPlatforms/MovingPlatform2"]
-libraries = {
-&"": SubResource("AnimationLibrary_272bh")
-}
-autoplay = "move_up"
+[node name="Sprite2D2" type="Sprite2D" parent="FloorsNPlatforms/Platform2"]
+position = Vector2(-17, -3.0000076)
+texture = ExtResource("14_yaehf")
 
 [node name="Platform3" type="StaticBody2D" parent="FloorsNPlatforms"]
-position = Vector2(505.00003, 50.000004)
-scale = Vector2(0.20112297, 0.2759285)
+position = Vector2(509, 58)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Platform3"]
+position = Vector2(-5, 1.9999924)
 shape = SubResource("RectangleShape2D_0xm2m")
 one_way_collision = true
 
 [node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Platform3"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
+offset_left = -26.999994
+offset_right = -20.528917
+offset_bottom = 14.066142
 scale = Vector2(6.3358803, 0.49938792)
 color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/Platform3"]
+texture = ExtResource("15_yaehf")
+
+[node name="Sprite2D2" type="Sprite2D" parent="FloorsNPlatforms/Platform3"]
+position = Vector2(-17, -3.0000076)
+texture = ExtResource("14_yaehf")
+
+[node name="MovingPlatformSIDE" type="AnimatableBody2D" parent="FloorsNPlatforms"]
+position = Vector2(667, 154)
+script = ExtResource("16_82xsv")
+metadata/_edit_group_ = true
+
+[node name="Mover" type="AnimationPlayer" parent="FloorsNPlatforms/MovingPlatformSIDE"]
+libraries = {
+&"": SubResource("AnimationLibrary_272bh")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/MovingPlatformSIDE"]
+texture = ExtResource("16_074og")
+hframes = 2
+
+[node name="Blinker" type="AnimationPlayer" parent="FloorsNPlatforms/MovingPlatformSIDE"]
+libraries = {
+&"": SubResource("AnimationLibrary_getpj")
+}
+autoplay = "blink"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/MovingPlatformSIDE"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_ryguw")
+
+[node name="MovingPlatformUP" type="AnimatableBody2D" parent="FloorsNPlatforms"]
+position = Vector2(1050.9999, 151)
+script = ExtResource("17_cegan")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/MovingPlatformUP"]
+texture = ExtResource("16_074og")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/MovingPlatformUP"]
+position = Vector2(0.00012207031, 1.5)
+shape = SubResource("RectangleShape2D_getpj")
+one_way_collision = true
+
+[node name="Blinker" type="AnimationPlayer" parent="FloorsNPlatforms/MovingPlatformUP"]
+libraries = {
+&"": SubResource("AnimationLibrary_1u8w0")
+}
+autoplay = "blink"
+
+[node name="MovingPlatformUP2" type="AnimatableBody2D" parent="FloorsNPlatforms"]
+position = Vector2(1191, 42)
+script = ExtResource("17_cegan")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/MovingPlatformUP2"]
+texture = ExtResource("16_074og")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/MovingPlatformUP2"]
+position = Vector2(0.00012207031, 1.5)
+shape = SubResource("RectangleShape2D_getpj")
+one_way_collision = true
+
+[node name="Blinker" type="AnimationPlayer" parent="FloorsNPlatforms/MovingPlatformUP2"]
+libraries = {
+&"": SubResource("AnimationLibrary_1u8w0")
+}
+autoplay = "blink"
 
 [node name="Tower" type="Node2D" parent="FloorsNPlatforms"]
-
-[node name="Platform4" type="StaticBody2D" parent="FloorsNPlatforms/Tower"]
-position = Vector2(1276, -56.999996)
-scale = Vector2(0.20112297, 0.2759285)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Tower/Platform4"]
-shape = SubResource("RectangleShape2D_0xm2m")
-one_way_collision = true
-
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Tower/Platform4"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
-scale = Vector2(6.3358803, 0.49938792)
-color = Color(0, 0, 0, 1)
-
-[node name="Platform5" type="StaticBody2D" parent="FloorsNPlatforms/Tower"]
-position = Vector2(1174, -101)
-scale = Vector2(0.20112297, 0.2759285)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Tower/Platform5"]
-shape = SubResource("RectangleShape2D_0xm2m")
-one_way_collision = true
-
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Tower/Platform5"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
-scale = Vector2(6.3358803, 0.49938792)
-color = Color(0, 0, 0, 1)
-
-[node name="Platform6" type="StaticBody2D" parent="FloorsNPlatforms/Tower"]
-position = Vector2(1276, -128)
-scale = Vector2(0.20112297, 0.2759285)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Tower/Platform6"]
-shape = SubResource("RectangleShape2D_0xm2m")
-one_way_collision = true
-
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Tower/Platform6"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
-scale = Vector2(6.3358803, 0.49938792)
-color = Color(0, 0, 0, 1)
 
 [node name="Wall" type="StaticBody2D" parent="FloorsNPlatforms/Tower"]
 position = Vector2(1148.0001, -100)
@@ -522,21 +1003,97 @@ offset_right = 40.0
 offset_bottom = 9.861751
 color = Color(0, 0, 0, 1)
 
-[node name="Wall2" type="StaticBody2D" parent="FloorsNPlatforms/Tower"]
-position = Vector2(1304, 34)
-scale = Vector2(0.022971706, 16.466066)
+[node name="Platform7" type="StaticBody2D" parent="FloorsNPlatforms/Tower"]
+position = Vector2(1172, -94)
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Tower/Wall2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Tower/Platform7"]
+position = Vector2(-5, 1.9999924)
 shape = SubResource("RectangleShape2D_0xm2m")
+one_way_collision = true
 
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Tower/Wall2"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Tower/Platform7"]
+offset_left = -26.999994
+offset_right = -20.528917
+offset_bottom = 14.066142
 scale = Vector2(6.3358803, 0.49938792)
 color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/Tower/Platform7"]
+texture = ExtResource("15_yaehf")
+
+[node name="Sprite2D2" type="Sprite2D" parent="FloorsNPlatforms/Tower/Platform7"]
+position = Vector2(-17, -3.0000076)
+texture = ExtResource("14_yaehf")
+
+[node name="Platform8" type="StaticBody2D" parent="FloorsNPlatforms/Tower"]
+z_index = -1
+position = Vector2(1289, -56)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Tower/Platform8"]
+position = Vector2(-5, 1.9999924)
+shape = SubResource("RectangleShape2D_0xm2m")
+one_way_collision = true
+
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Tower/Platform8"]
+offset_left = -26.999994
+offset_right = -20.528917
+offset_bottom = 14.066142
+scale = Vector2(6.3358803, 0.49938792)
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/Tower/Platform8"]
+texture = ExtResource("15_yaehf")
+
+[node name="Sprite2D2" type="Sprite2D" parent="FloorsNPlatforms/Tower/Platform8"]
+position = Vector2(-17, -3.0000076)
+texture = ExtResource("14_yaehf")
+
+[node name="Platform9" type="StaticBody2D" parent="FloorsNPlatforms/Tower"]
+z_index = -1
+position = Vector2(1293, -131)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Tower/Platform9"]
+position = Vector2(-5, 1.9999924)
+shape = SubResource("RectangleShape2D_0xm2m")
+one_way_collision = true
+
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Tower/Platform9"]
+offset_left = -26.999994
+offset_right = -20.528917
+offset_bottom = 14.066142
+scale = Vector2(6.3358803, 0.49938792)
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/Tower/Platform9"]
+texture = ExtResource("15_yaehf")
+
+[node name="Sprite2D2" type="Sprite2D" parent="FloorsNPlatforms/Tower/Platform9"]
+position = Vector2(-17, -3.0000076)
+texture = ExtResource("14_yaehf")
+
+[node name="Wall2" type="StaticBody2D" parent="FloorsNPlatforms/Tower"]
+z_index = -1
+position = Vector2(1304, 34)
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Tower/Wall2"]
+offset_left = -3.0
+offset_top = -165.0
+offset_right = -2.2108307
+offset_bottom = 495.7599
+scale = Vector2(6.3358803, 0.49938792)
+color = Color(0, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Tower/Wall2"]
+shape = SubResource("RectangleShape2D_0odxb")
+
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/Tower/Wall2"]
+position = Vector2(4, -12.999992)
+scale = Vector2(1, 7.842106)
+texture = ExtResource("19_ryguw")
 
 [node name="Wall3" type="StaticBody2D" parent="FloorsNPlatforms/Tower"]
 position = Vector2(1503.0001, -166)
@@ -554,28 +1111,27 @@ offset_bottom = 30.0
 scale = Vector2(6.3358803, 0.49938792)
 color = Color(0, 0, 0, 1)
 
-[node name="MovingPlatform3" type="AnimatableBody2D" parent="FloorsNPlatforms/Tower"]
-position = Vector2(1205, 50)
-scale = Vector2(0.20112297, 0.2759285)
-metadata/_edit_group_ = true
+[node name="Crate" type="StaticBody2D" parent="FloorsNPlatforms"]
+position = Vector2(1500, 143)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Tower/MovingPlatform3"]
-shape = SubResource("RectangleShape2D_0xm2m")
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/Crate"]
+texture = ExtResource("19_getpj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Crate"]
+position = Vector2(-2, -19.75)
+shape = SubResource("RectangleShape2D_1u8w0")
 one_way_collision = true
 
-[node name="ColorRect" type="ColorRect" parent="FloorsNPlatforms/Tower/MovingPlatform3"]
-offset_left = -126.00001
-offset_top = -10.0
-offset_right = -86.00001
-offset_bottom = 30.0
-scale = Vector2(6.3358803, 0.49938792)
-color = Color(0, 0, 0, 1)
+[node name="Crate2" type="StaticBody2D" parent="FloorsNPlatforms"]
+position = Vector2(535, 140)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="FloorsNPlatforms/Tower/MovingPlatform3"]
-libraries = {
-&"": SubResource("AnimationLibrary_kek77")
-}
-autoplay = "move_up_2"
+[node name="Sprite2D" type="Sprite2D" parent="FloorsNPlatforms/Crate2"]
+texture = ExtResource("19_getpj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorsNPlatforms/Crate2"]
+position = Vector2(-2, -19.75)
+shape = SubResource("RectangleShape2D_1u8w0")
+one_way_collision = true
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
 unique_name_in_owner = true
@@ -667,7 +1223,7 @@ position = Vector2(958, 131)
 position = Vector2(957, 24)
 
 [node name="Pickup15" parent="Pickups" instance=ExtResource("4_lquwl")]
-position = Vector2(1276, -74)
+position = Vector2(1283, -79)
 
 [node name="Pickup16" parent="Pickups" instance=ExtResource("4_lquwl")]
 position = Vector2(1165, -120)
@@ -685,20 +1241,23 @@ position = Vector2(1356, -30)
 position = Vector2(1357, 47)
 
 [node name="Pickup9" parent="Pickups" instance=ExtResource("4_lquwl")]
-position = Vector2(501, 36)
+position = Vector2(223, 37)
 
 [node name="Pickup10" parent="Pickups" instance=ExtResource("4_lquwl")]
-position = Vector2(510, 36)
+position = Vector2(232, 37)
 
 [node name="Pickup11" parent="Pickups" instance=ExtResource("4_lquwl")]
-position = Vector2(505, 28)
+position = Vector2(227, 29)
+
+[node name="Pickup21" parent="Pickups" instance=ExtResource("4_lquwl")]
+position = Vector2(503, 37)
 
 [node name="HUD" parent="." instance=ExtResource("5_7mycd")]
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource("5_lquwl")]
-position = Vector2(1573, 121)
+position = Vector2(1603, 141)
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("5_lquwl")]
 position = Vector2(425, 130)
@@ -723,6 +1282,19 @@ position = Vector2(2194, 144)
 
 [node name="MaxHealthUp" parent="MaxHealthItems" instance=ExtResource("14_w48qg")]
 position = Vector2(1149, 145)
+
+[node name="DashPowerup" type="RigidBody2D" parent="." groups=["dash_powerup"]]
+position = Vector2(406, 36)
+collision_layer = 64
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("23_1u8w0")
+
+[node name="Sprite2D" type="Sprite2D" parent="DashPowerup"]
+texture = ExtResource("24_0odxb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashPowerup"]
+shape = SubResource("CircleShape2D_lswn8")
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="got_pickup" from="Player" to="." method="_on_player_got_pickup"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://h708p2wjtnm2"]
+[gd_scene load_steps=8 format=3 uid="uid://h708p2wjtnm2"]
 
 [ext_resource type="Texture2D" uid="uid://cqrwjd6chi83w" path="res://hud/dead.png" id="1_37p78"]
 [ext_resource type="Texture2D" uid="uid://bco4obm281167" path="res://pickups/carrot-outline.png" id="1_318vg"]
+[ext_resource type="FontFile" uid="uid://b7ov5pa6nlg47" path="res://fonts/ARCADECLASSIC.TTF" id="1_w8tcp"]
 [ext_resource type="Texture2D" uid="uid://d25xam58ahrtc" path="res://hud/health_icons.png" id="3_318vg"]
 
 [sub_resource type="Animation" id="Animation_8sq4i"]
@@ -50,7 +51,10 @@ offset_left = -26.0
 offset_bottom = 28.0
 grow_horizontal = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("1_w8tcp")
+theme_override_font_sizes/font_size = 28
 text = "0"
 
 [node name="Sprite2D" type="Sprite2D" parent="PickupCounter"]

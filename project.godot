@@ -29,6 +29,7 @@ player=""
 enemies_=""
 health_items=""
 max_health_up=""
+dash_powerup=""
 
 [input]
 

@@ -68,6 +68,7 @@ func new_game():
 	$Player.hp = max_hp
 	$Player.max_hp = max_hp
 	$Player.dead = false
+	#$Player.got_dash = false
 	update_hud()
 	
 	refresh_items($Pickups,pickup_spawns,pickup_scene)

@@ -1,9 +1,45 @@
-[gd_scene load_steps=4 format=3 uid="uid://dklb3s4f48kq3"]
+[gd_scene load_steps=7 format=3 uid="uid://dklb3s4f48kq3"]
 
 [ext_resource type="Texture2D" uid="uid://bo320ecyyckko" path="res://pickups/health_item.png" id="1_w8ec5"]
-[ext_resource type="Script" uid="uid://wsg88ljm4pn2" path="res://pickups/health_item.gd" id="1_y6h1w"]
+[ext_resource type="Script" path="res://pickups/health_item.gd" id="1_y6h1w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w8ec5"]
+
+[sub_resource type="Animation" id="Animation_y6h1w"]
+resource_name = "flicker"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.1998931, 0.2998931, 0.4057713, 0.5057713, 0.6056644, 0.7056644, 0.7992836, 0.89928365, 0.99917674),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.23529412), Color(1, 1, 1, 1), Color(1, 1, 1, 0.23529412), Color(1, 1, 1, 1), Color(1, 1, 1, 0.23529412), Color(1, 1, 1, 1), Color(1, 1, 1, 0.23529412), Color(1, 1, 1, 1), Color(1, 1, 1, 0.23529412), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3n60l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_luk53"]
+_data = {
+&"RESET": SubResource("Animation_3n60l"),
+&"flicker": SubResource("Animation_y6h1w")
+}
 
 [node name="HealthItem" type="RigidBody2D" groups=["health_items"]]
 collision_layer = 64
@@ -16,3 +52,8 @@ texture = ExtResource("1_w8ec5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_w8ec5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_luk53")
+}
